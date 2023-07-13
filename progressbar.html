@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+body{
+    background-color: black;
+}
+.item{
+    color: white;
+}
+.ul{
+    display: flex;
+}
+.item{
+    margin:0px 8px;
+}
+  ul,.ul1,.ul2,.ul3 {
+    list-style: none; 
+  }
+  
+  .ul1 li::before {
+    content: "\2022";  
+    color: greenyellow; 
+    display: inline-block; 
+    width: 1em; 
+    margin-left: -1em; 
+  }   
+  .ul2 li::before {
+    content: "\2022";  
+    color: green; 
+    display: inline-block; 
+    width: 1em; 
+    margin-left: -1em; 
+  }   
+  .ul3 li::before {
+    content: "\2022";  
+    color: orangered; 
+    display: inline-block; 
+    width: 1em; 
+    margin-left: -1em; 
+  }   
+  .weight{
+    display: flex;
+    margin-bottom: 0px;
+  }
+.weightitem{
+    margin:15px 70px;
+}
+.item1{
+    margin-left: 100px;
+}
+#progress-bar {
+    width: 300px;
+    height: 5px;
+    background-color: #f2f2f2;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    margin-left:70px;
+    display: flex;
+    gap: 0px;
+  }
+
+  #fill-progress1 {
+    height: 100%;
+    background-color: yellowgreen;
+    width: 0px;
+    transition: width 0.3s;
+  }
+  #fill-progress2 {
+    height: 100%;
+    background-color:green;
+    width: 0px;
+    transition: width 0.3s;
+  }
+  #fill-progress3 {
+    height: 100%;
+    background-color:red;
+    width: 0px;
+    transition: width 0.3s;
+  }
+  .num{
+     display: flex;
+  }
+  .num1{
+    margin-left: 190px;
+    font-size: 12px;
+    margin-top: 0px;
+  }
+  .num2{
+    font-size: 12px;
+    margin-left: 15px;
+  }
+  .bmi{
+    display: flex;
+    margin-bottom: 10px;
+  }
+.bm{
+    color: white;
+    margin-top: 20px;
+}
+.bmi1{
+    margin-left: 70px;
+}
+.bmi2{
+    margin-left: 180px;
+}
+.second{
+    margin-top: 15px;
+}
+#progress-bar1{
+    width: 300px;
+    height: 5px;
+    background-color: #f2f2f2;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    margin-left:70px;
+    display: flex;
+    gap: 0px;
+}
+#fill-progress21{
+    height: 100%;
+    background-color: yellowgreen;
+    width: 0px;
+    transition: width 0.3s;
+}
+#fill-progress22{
+    height: 100%;
+    background-color:green;
+    width: 0px;
+    transition: width 0.3s;
+}
+#fill-progress23{
+    height: 100%;
+    background-color:red;
+    width: 0px;
+    transition: width 0.3s;
+}
+    </style>
+</head>
+<body>
+ <div class="main">
+    <div class="list">
+        <ul class="ul" type="circle"> 
+          <ul class="ul1"><li class="item">Low</li></ul>  
+            <ul class="ul2"><li class="item">Normal</li></ul>
+            <ul class="ul3"><li class="item">High</li></ul>
+        </ul>
+    </div>
+
+    <div class="weight">
+        <div class="item weightitem">Weight</div>
+        <div class="item weightitem item1">98 kg - 0</div>
+    </div>
+    <div id="progress-bar">
+        <div id="fill-progress1"></div>
+        <div id="fill-progress2"></div>
+        <div id="fill-progress3"></div>
+    </div>
+    <div class="num">
+        <div class="item num1">65.4</div>
+        <div class="item num2">88.4</div>
+    </div>
+    <div class="bmi">
+        <div class="bm bmi1">BMI</div>
+        <div class="bm bmi2">27.7 - 0</div>
+    </div>
+    <div id="progress-bar1">
+        <div id="fill-progress21"></div>
+        <div id="fill-progress22"></div>
+        <div id="fill-progress23"></div>
+    </div>
+      <script>
+        var data=window.location.search;
+        var params=new URLSearchParams(data);
+        var height=params.get("height");
+        var weight=params.get("weight");
+        function updateProgress(a,b) {
+             var a1,a2,c,progress;
+             if(a==1)
+             { var progressBar1 = document.getElementById("fill-progress1");
+               var progressBar2 = document.getElementById("fill-progress2");
+               var progressBar3 = document.getElementById("fill-progress3");
+               a1=65.4;
+               a2=88.4;
+               c=2;
+             }
+             else
+             { var progressBar1 = document.getElementById("fill-progress21");
+               var progressBar2 = document.getElementById("fill-progress22");
+               var progressBar3 = document.getElementById("fill-progress23");
+               a1=18.5;
+               a2=25;
+               c=5;
+             }
+             progress=b;
+            if(progress<=a1)
+            {   
+                progressBar1.style.width =(c*progress)+'px';
+            }
+            else if(progress<=a2)
+            {    progressBar1.style.width = (c*(a1))+'px';
+                progress=progress-a1 ;
+              progressBar2.style.width = (c*progress)+'px';
+            }
+            else{
+                progressBar1.style.width = ((c*(a1)))+'px';
+              progressBar2.style.width = ((c*(a2-a1)))+'px';
+              progressBar3.style.width = ((progress-a2))+'px';
+            }
+          }
+          var bmi=(((weight)/(height*height)))
+        updateProgress(1,weight);
+        updateProgress(2,bmi);
+     </script> 
+ </div>
+</body>
+</html>
